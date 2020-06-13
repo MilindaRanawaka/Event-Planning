@@ -9,6 +9,7 @@ const eventSchema = new Schema(
         description: { type: String, required: true, trim: true },
         location: { type: String, required: true, trim: true },
         time: { type: Date, required: true, trim: true },
+        addedBy: { type: String, required: true, trim: true }
     },
     {
         timestamps: true,
@@ -17,5 +18,5 @@ const eventSchema = new Schema(
 
 const User = mongoose.model("Event", eventSchema);
 
-//Export User
+//Export Events
 module.exports = User;

@@ -5,7 +5,7 @@ let Attendees = require("../models/attendees.model");
 //@desc Get All Attendees
 router.route("/").get((req, res) => {
     Attendees.find()
-        .then((category) => res.json(category))
+        .then((attendees) => res.json(attendees))
         .catch((err) => res.status(400).json("Error: " + err));
 });
 
@@ -30,7 +30,7 @@ router.route("/add").post((req, res) => {
 //@desc Get Specific Attendee Using ID
 router.route("/:id").get((req, res) => {
     Attendees.findById(req.params.id)
-        .then((category) => res.json(category))
+        .then((attendees) => res.json(attendees))
         .catch((err) => res.status(400).json("Error: " + err));
 });
 
@@ -46,7 +46,7 @@ router.route("/:id").delete((req, res) => {
 //@desc Filter Attendees by Given Event ID
 router.route("/find/:name").get((req, res) => {
     Event.find({ eventID: { $regex: req.params.eventID } })
-        .then((category) => res.json(category))
+        .then((attendees) => res.json(attendees))
         .catch((err) => res.status(400).json("Error: " + err));
 });
 
@@ -54,7 +54,7 @@ router.route("/find/:name").get((req, res) => {
 //@desc Filter Attendees by Given User ID
 router.route("/find/:name").get((req, res) => {
     Event.find({ userID: { $regex: req.params.userID } })
-        .then((category) => res.json(category))
+        .then((attendees) => res.json(attendees))
         .catch((err) => res.status(400).json("Error: " + err));
 });
 

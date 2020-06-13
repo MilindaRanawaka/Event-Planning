@@ -38,10 +38,10 @@ router.route("/").post((req, res) => {
 });
 
 //@route GET
-//@desc Get all users data (Password is encrypted)
-router.route("/").get((req, res) => {
-    User.find()
-        .then((category) => res.json(category))
+//@desc Get Specific User Data (Password is encrypted)
+router.route("/:id").get((req, res) => {
+    User.findById(req.params.id)
+        .then((users) => res.json(users))
         .catch((err) => res.status(400).json("Error: " + err));
 });
 

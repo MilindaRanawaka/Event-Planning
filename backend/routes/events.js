@@ -5,7 +5,7 @@ let Event = require("../models/events.model");
 //@desc Get All Events
 router.route("/").get((req, res) => {
     Event.find()
-        .then((category) => res.json(category))
+        .then((event) => res.json(event))
         .catch((err) => res.status(400).json("Error: " + err));
 });
 
@@ -16,12 +16,14 @@ router.route("/add").post((req, res) => {
     const description = req.body.eventDescription;
     const location = req.body.eventLocation;
     const time = req.body.eventTime;
+    const addedBy = req.body.addedBy;
 
     const newEvent = new Event({
         name,
         description,
         location,
         time,
+        addedBy,
     });
 
     newEvent
@@ -34,7 +36,7 @@ router.route("/add").post((req, res) => {
 //@desc Get Specific Event Using ID
 router.route("/:id").get((req, res) => {
     Event.findById(req.params.id)
-        .then((category) => res.json(category))
+        .then((event) => res.json(event))
         .catch((err) => res.status(400).json("Error: " + err));
 });
 
@@ -50,7 +52,7 @@ router.route("/:id").delete((req, res) => {
 //@desc Filter Event Name by Given Name
 router.route("/find/:name").get((req, res) => {
     Event.find({ categoryName: { $regex: req.params.name } })
-        .then((category) => res.json(category))
+        .then((event) => res.json(event))
         .catch((err) => res.status(400).json("Error: " + err));
 });
 
@@ -59,10 +61,13 @@ router.route("/find/:name").get((req, res) => {
 router.route("/update/:id").post((req, res) => {
     console.log(req.params.categoryName);
     Event.findById(req.params.id)
-        .then((category) => {
-            category.categoryName = req.body.categoryName;
+        .then((event) => {
+            event.name = req.body.eventName;
+            event.description = req.body.eventDescription;
+            event.location = req.body.eventLocation;
+            event.time = req.body.eventTime;
 
-            category
+            event
                 .save()
                 .then(() => res.json("Event updated!"))
                 .catch((err) => {

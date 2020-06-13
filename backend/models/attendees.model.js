@@ -15,5 +15,5 @@ const attendeesSchema = new Schema(
 
 const User = mongoose.model("Attendees", attendeesSchema);
 
-//Export User
+//Export Attendees
 module.exports = User;
